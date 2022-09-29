@@ -1,6 +1,6 @@
 {
   "id": "module",
-  "title": "New Module",
+  "title": "DynamicViewer",
   "description": "",
   "version": "This is auto replaced",
   "library": "false",
@@ -12,9 +12,9 @@
   },
   "authors": [
     {
-      "name": "The League of Extraordinary FVTT Developers",
-      "url": "https://github.com/League-of-Foundry-Developers",
-      "discord": "discordID#0001"
+      "name": "Vestium",
+      "url": "https://github.com/Vestium-R/DynamicViewer",
+      "discord": "Vestium#8078"
     }
   ],
   "relationships": {
