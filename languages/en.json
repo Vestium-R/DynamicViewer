@@ -1,3 +1,18 @@
 {
-    "MODULE.hello": "hello"
+    "settings.journal.title": "Create Match Journals",
+    "settings.journal.hint": "Enabling this will create matching journal entries item macro to check if an item has a macro and roll that instead of the default system's execution.",
+
+    "settings.journalp.title": "Journal Default Permissions",
+    "settings.journalp.hint": "Changing this will set the default permissiosn for the journal entries",
+
+    "settings.visibilty.title" : "Player access",
+    "settings.visibilty.hint" : "Enabling this will make it so your players will receive the popups. Disable for GM Only",
+
+	"exclusionsmanager.title" : "Exclusions Manager",
+	"exclusionsmanager.hint" : "Add which scenes should not dynamically generate video elements",
+	"exclusionsmanager.label" : "Configure",
+	"exclusionsmanager.description" : "Exclusions by Name (Ex: 'World_Map')",
+	"exclusionsmanager.add": "Add",
+	"exclusionsmanager.savechanges": "Save Changes",
+	"exclusionsmanager.cancel": "Exit without saving"
 }
