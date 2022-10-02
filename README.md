@@ -1,11 +1,24 @@
 # DynamicViewer
 
-By default this module will:
-- When moving to a battlemap it will check the conditions in the module setting - if the filename matches any of the conditions it will check for a matching "scene" file. If it can find one it will do the following:
+This is a module for displaying a dynamic picture in picture based on the battlemap that is being loaded. This module is intended to be used in conjunction with the Beneos Battlemaps but will support a variety of both animated and non-animated maps.
 
-- Create a journal entry with the embedded scene video (depending on settings)
-- Share the journal entry (depending on settings)
-- Create a picture in picture frame with the video scene embedded)
+
+For Animated maps:
+
+When moving to a battlemap it will check the conditions in the module setting - if the filename matches any of the conditions it will check for a matching "scene" file (a file that matches the exact name of the battlemap with _Scen in the file name. If it can find one it will do the following:
+
+Create a journal entry with the embedded scene video (depending on settings)
+
+Share the journal entry (depending on settings)
+
+Create a picture in a picture frame with the video scene embedded (to either players or GM only depending on settings)
+
+For non-webm maps:
+
+It will do the following:
+
+Create a journal entry with the embedded scene video (depending on settings)
+Share the journal entry (depending on settings)
 
 ![image](https://user-images.githubusercontent.com/78631300/193439488-a42a18d1-81fe-4f01-b6b4-5645c1148aa7.png)
 
