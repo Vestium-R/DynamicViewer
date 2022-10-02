@@ -1,6 +1,6 @@
 # DynamicViewer
 
-This is a module for displaying a dynamic picture in picture elements on a battlemap scene that is being loaded. This module is intended to be used in conjunction with the Beneos Battlemaps but will support a variety of both animated and non-animated maps.
+This is a module for displaying a dynamic picture in picture elements on a battlemap scene that is being loaded. It also creates the corresponding Journal entries. This module is intended to be used in conjunction with the Beneos Battlemaps but will support a variety of both animated and non-animated maps.
 
 
 For Animated maps:
