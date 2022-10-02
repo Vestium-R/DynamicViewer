@@ -13,8 +13,8 @@ Share the journal entry (depending on settings)
 
 Create a picture in a picture frame with the video scene embedded (to either players or GM only depending on settings)
 
-**For non-webm maps:
-**
+For non-webm maps:
+
 It will do the following:
 
 Create a journal entry with the embedded scene video (depending on settings)
