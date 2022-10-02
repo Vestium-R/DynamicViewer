@@ -5,6 +5,9 @@ import CONSTANTS from "./constants.js";
 import {
     exclusionsmanager
 } from "./exclusions.js"
+import {
+    conditionsmanager
+} from "./conditions.js"
 
 export let setting = key => {
     return game.settings.get("dynamicviewer", key);
@@ -12,16 +15,12 @@ export let setting = key => {
 export let i18n = key => {
     return game.i18n.localize(key);
 };
- let permissions = {};
-    permissions[CONST.USER_ROLES.PLAYER] = 'Player';
-    permissions[CONST.USER_ROLES.TRUSTED] = 'Trusted Player';
-    permissions[CONST.USER_ROLES.ASSISTANT] = 'Assistant GM';
-    permissions[CONST.USER_ROLES.GAMEMASTER] = 'Game Master';
-    permissions[5] = 'None';
-	
+let permissions = {};
+permissions[CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER] = 'Player Observer';
+permissions[CONST.DOCUMENT_PERMISSION_LEVELS.None] = 'Game Master';
 
 export class settings {
-   
+
     static get isV10() {
         return game.release?.generation >= 10;
     }
@@ -59,37 +58,59 @@ export class settings {
 
     static register_settings() {
         const settingData = {
+			            visibiltydv: {
+                scope: "world",
+                config: true,
+                default: true,
+                type: Boolean
+            },
             journal: {
                 scope: "world",
                 config: true,
                 default: true,
                 type: Boolean
             },
-	 journalp: {
-      scope: "world",
-      config: true,
-      default: CONST.USER_ROLES.GAMEMASTER,
-      choices: permissions,
-      type: String,
-    },			
-            visibilty: {
+            journalp: {
                 scope: "world",
                 config: true,
-                default: false,
-                type: Boolean
+                default: CONST.USER_ROLES.GAMEMASTER,
+                choices: permissions,
+                type: String,
             },
-			exclusions: {
-				scope: "world",
-		config: false,
-		default: [
-			{ id: 'world_map', name: "Test"},
-			{ id: 'world_maps', name: "Test2"},
-		],
-		type: Array,
-			},
+			            journalfolder: {
+                scope: "world",
+                config: true,
+                default: "Dynamic Viewer",
+                type: String,
+            },
+            conditions: {
+                scope: "world",
+                config: false,
+                default: [{
+                        id: 'beneos'
+                    },
+                    {
+                        id: '_BM'
+                    },
+                ],
+                type: Array,
+            },
+
+            exclusions: {
+                scope: "world",
+                config: false,
+                default: [{
+                        id: 'world_map'
+                    },
+                    {
+                        id: 'world_maps'
+                    },
+                ],
+                type: Array,
+            },
 
         };
-		
+
         Object.entries(settingData).forEach(([key, data]) => {
             game.settings.register(
                 settings.id, key, {
@@ -107,9 +128,15 @@ export class settings {
                 scope: "world",
                 config: true,
                 restricted: true,
-				icon:"fas fa-cog",
-				label: "test",
+                icon: "fas fa-cog",
                 type: exclusionsmanager
+            },
+			            conditionsmanager: {
+                scope: "world",
+                config: true,
+                restricted: true,
+                icon: "fas fa-cog",
+                type: conditionsmanager
             }
         };
 
@@ -120,7 +147,7 @@ export class settings {
                 settings.id, key, {
                     name: settings.i18n(`${key}.title`),
                     hint: settings.i18n(`${key}.hint`),
-					label: settings.i18n(`${key}.label`),
+                    label: settings.i18n(`${key}.label`),
                     ...data
                 }
             );

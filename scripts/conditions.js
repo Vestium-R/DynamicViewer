@@ -4,7 +4,7 @@ import {
     logger
 } from "./logger.js";
 
-export class EditExclusions extends FormApplication {
+export class EditConditions extends FormApplication {
     constructor(object) {
         super(object);
     }
@@ -12,10 +12,10 @@ export class EditExclusions extends FormApplication {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            id: "edit-exclusions",
-            classes: ["form", "edit-exclusions"],
-            title: i18n("exclusionsmanager.title"),
-            template: "modules/dynamicviewer/templates/exclusions.html",
+            id: "edit-conditions",
+            classes: ["form", "edit-conditions"],
+            title: i18n("conditionsmanager.title"),
+            template: "modules/dynamicviewer/templates/conditions.html",
             width: 600,
             submitOnChange: false,
             closeOnSubmit: true,
@@ -25,18 +25,18 @@ export class EditExclusions extends FormApplication {
     }
 
     addAttribute(event) {
-        this.exclusions.push({ id: ""});
+        this.conditions.push({ id: ""});
         this.refresh();
     }
 	
-    static exclusionsWindowInstance = {}
+    static conditionsWindowInstance = {}
 
 	
     changeData(event) {
         let attrid = event.currentTarget.closest('li.item').dataset.id;
         let prop = $(event.currentTarget).attr("name");
 
-        let attr = this.exclusions.find(c => c.id == attrid);
+        let attr = this.conditions.find(c => c.id == attrid);
         if (attr) {
             let val = $(event.currentTarget).val();
             if (prop == "hidden" || prop == "full") {
@@ -44,7 +44,7 @@ export class EditExclusions extends FormApplication {
             }
             else if (prop == "id") {
                 $(event.currentTarget).val(val);
-                if (!!this.exclusions.find(c => c.id == val)) {
+                if (!!this.conditions.find(c => c.id == val)) {
                     $(event.currentTarget).val(attrid)
                     return;
                 }
@@ -57,7 +57,7 @@ export class EditExclusions extends FormApplication {
 
     removeAttribute() {
         let attrid = event.currentTarget.closest('li.item').dataset.id;
-        this.exclusions.findSplice(s => s.id === attrid);
+        this.conditions.findSplice(s => s.id === attrid);
         this.refresh();
     }
 
@@ -73,7 +73,7 @@ export class EditExclusions extends FormApplication {
         super.activateListeners(html);
 
         $('button[name="submit"]', html).click(this._onSubmit.bind(this));
-        $('button[name="cancel"]', html).click(this.resetExclusions.bind(this));
+        $('button[name="cancel"]', html).click(this.resetConditions.bind(this));
 
         $('input[name]', html).change(this.changeData.bind(this));
 
@@ -108,10 +108,10 @@ export class EditExclusions extends FormApplication {
         if (target && target.dataset.id) {
             if (data.id === target.dataset.id) return; // Don't drop on yourself
 
-            let from = this.exclusions.findIndex(a => a.id == data.id);
-            let to = this.exclusions.findIndex(a => a.id == target.dataset.id);
+            let from = this.conditions.findIndex(a => a.id == data.id);
+            let to = this.conditions.findIndex(a => a.id == target.dataset.id);
               logger.info('from', from, 'to', to);
-            this.exclusions.splice(to, 0, this.exclusions.splice(from, 1)[0]);
+            this.conditions.splice(to, 0, this.conditions.splice(from, 1)[0]);
 
             if (from < to)
                 $('.item-list .item[data-id="' + data.id + '"]', this.element).insertAfter(target);
@@ -121,33 +121,33 @@ export class EditExclusions extends FormApplication {
     }
 }
 
-export class exclusionsmanager extends EditExclusions {
+export class conditionsmanager extends EditConditions {
     constructor(object) {
         super(object);
     }
 
     getData(options) {
-        this.exclusions = this.exclusions || setting("exclusions");
+        this.conditions = this.conditions || setting("conditions");
         return mergeObject(super.getData(options),
             {
-                fields: this.exclusions
+                fields: this.conditions
             }
         );
     }
 
     _updateObject() {
-        let data = this.exclusions.filter(c => !!c.id);
-        game.settings.set('dynamicviewer', 'exclusions', data);
+        let data = this.conditions.filter(c => !!c.id);
+        game.settings.set('dynamicviewer', 'conditions', data);
         this.submitting = true;
     }
 
-    resetExclusions() {
-        this.exclusions = game.settings.settings.get('dynamicviewer.exclusions').default;
+    resetConditions() {
+        this.conditions = game.settings.settings.get('dynamicviewer.conditions').default;
         this.refresh();
     }
 	
     static async renderWindow() {
-        exclusionsmanager.exclusionsWindowInstance = new exclusionsmanager();
-        exclusionsmanager.exclusionsWindowInstance.render(true);
+        conditionsmanager.conditionsWindowInstance = new conditionsmanager();
+        conditionsmanager.conditionsWindowInstance.render(true);
     }
 }
