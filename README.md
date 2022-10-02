@@ -22,7 +22,7 @@ Share the journal entry (depending on settings)
 
 Example:
 
-![DynamicScene](https://user-images.githubusercontent.com/78631300/193440839-2ff5c397-5588-4938-a151-1c231928e6a5.gif)
+![DynamicScene](https://user-images.githubusercontent.com/78631300/193440956-122a028e-97fb-4c44-a239-ec3d2e92c456.gif)
 
 Settings:
 
