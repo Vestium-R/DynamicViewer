@@ -8,13 +8,12 @@ import {
 import {
     exclusionsmanager
 } from "./scripts/exclusions.js"
-
 Hooks.on('init', CreateVideoElement)
 Hooks.on('init', settings.register)
 Hooks.on('getSceneControlButtons', getSceneControlButtons);
 Hooks.on("renderSceneDirectory", (app, html, data) => {
     // Add the import button to the UI in the characters tab.
-    const importButton = $("<button id='scene-exclusions-main-button'><i class='fas fa-file-import'></i></i>Dynamic Scene Exclusions</button>");
+    const importButton = $("<button id='scene-exclusions-main-button'><i class='fas fa-image-slash'></i></i>Dynamic Scene Exclusions</button>");
     html.find(".directory-footer").append(importButton);
 
     importButton.click(async (ev) => {
@@ -24,14 +23,13 @@ Hooks.on("renderSceneDirectory", (app, html, data) => {
     });
 });
 
-Hooks.on("canvasInit", checkScene);
+Hooks.on("canvasInit", prepare);
 
-async function checkScene() {
+async function prepare() {
     if (document.pictureInPictureElement) {
         document.exitPictureInPicture();
     }
 
-    let video = document.getElementsByTagName('video')[0];
 
     const scene = canvas.scene;
     const bmSource = scene.background.src;
@@ -39,69 +37,109 @@ async function checkScene() {
 
     ///****** Add your exclusions here
     let exclusions = game.settings.get('dynamicviewer', "exclusions");
-	let exclusionscheck = exclusions.some(ell => bmSource.includes(ell.id))
-    
-	    const conditions = game.settings.get('dynamicviewer', "conditions");
+    let exclusionscheck = exclusions.some(ell => bmSource.includes(ell.id))
 
-   //const condtionscheck = conditions.reduce((a, c) => a + bmSource.includes(c), 0) == 2;
-		let condtionscheck = conditions.some(ell => bmSource.includes(ell.id))
-debugger
+    const conditions = game.settings.get('dynamicviewer', "conditions");
+
+    //const condtionscheck = conditions.reduce((a, c) => a + bmSource.includes(c), 0) == 2;
+    let condtionscheck = conditions.some(ell => bmSource.includes(ell.id))
+
     if (condtionscheck && !(exclusionscheck)) {
-        const checkSource = bmSource.replace(new RegExp("(.*)" + "_BM"), "$1_Scen");
-        //check if matching scene file exists
-        //if it does - create the journal and do more stuff
-        if (await file_exists(checkSource)) {
+        let originextcheckSource = bmSource.replace(new RegExp("(.*)" + "_BM"), "$1_Scen");
+        var re = /(?:\.([^.]+))?$/;
+        var extension = re.exec(bmSource)[1];
 
-            var lastslash = checkSource.lastIndexOf('/');
-            var secondlastslash = checkSource.lastIndexOf("/", checkSource.lastIndexOf("/") - 1);
-            let sceneName = checkSource.substring(lastslash + 1);
-            if (sceneName == "HD_Scen.webm") {
-                sceneName = checkSource.substring(secondlastslash + 1);
+        if (extension === "webm") {
+            if (file_exists(originextcheckSource)) {
+                Main(originextcheckSource, scene, extension);
             }
 
-            let createEntry = game.settings.get('dynamicviewer', "journal");
-            if (createEntry) {
-                let journalpermission = game.settings.get('dynamicviewer', "journalp");
-				let folderName = game.settings.get('dynamicviewer', "journalfolder");
-                checkJournal(scene, checkSource, sceneName, journalpermission, folderName);
-				
-            }
-            //for (let page of journal.pages) {
-            //if you don't want it to play in a screen you can also turn on auto play on the journal to bypass the script
-            //if ((page.video.autoplay) && page.name == journalName) {
-            if (game.user.isGM) {
-                await UpdateVideoElement(video, checkSource);
-                playElementVideoInPIP(video);
-                //playJournalVideoInPIP(journalName, page.name, entryId);
-            } else {
-                //give a 2 second headstart
-                await UpdateVideoElement(video, checkSource);
-
-                playElementVideoInPIP(video);
-                //playJournalVideoInPIP(journalName, page.name, entryId);
-            }
-            //  }
-            // }
+        } else {
+			let unsupportjournals = game.settings.get('dynamicviewer', "journalunsup");
+if (unsupportjournals)
+{
+            JournalHandler(originextcheckSource, scene, extension)
+}
         }
+
+
     }
 
 }
+async function JournalHandler(Source, scene, extension) {
+    var lastslash = Source.lastIndexOf('/');
 
-async function checkJournal(scene, checkSource, sceneName, journalpermission, folderName) {
-	let folder = game.folders.find(f=>f.name === folderName);
-    if(!folder) folder = await Folder.create({ name : folderName, type : `JournalEntry`, parent : ``});
-	debugger
+    var secondlastslash = Source.lastIndexOf("/", Source.lastIndexOf("/") - 1);
+
+    let sceneName = Source.substring(lastslash + 1);
+    if (sceneName == "HD_Scen.webm") {
+        sceneName = Source.substring(secondlastslash + 1);
+    }
+
+    let createEntry = game.settings.get('dynamicviewer', "journal");
+    if (createEntry) {
+        let journalpermission = game.settings.get('dynamicviewer', "journalp");
+        let folderName = game.settings.get('dynamicviewer', "journalfolder");
+        checkJournal(scene, Source, sceneName, journalpermission, folderName, extension);
+
+    }
+}
+async function Main(Source, scene, extension) {
+
+
+
+    let video = document.getElementsByTagName('video')[0];
+
+
+    JournalHandler(Source, scene, extension)
+
+
+    let playervisible = game.settings.get('dynamicviewer', "visibiltydv");
+    if (game.user.isGM) {
+        
+        await UpdateVideoElement(video, Source);
+        playElementVideoInPIP(video);
+
+    } else {
+
+        if (playervisible) {
+            await UpdateVideoElement(video, Source);
+            playElementVideoInPIP(video);
+
+        }
+    }
+
+
+}
+
+
+async function checkJournal(scene, Source, sceneName, journalpermission, folderName, extension) {
+    let folder = game.folders.find(f => f.name === folderName);
+    if (!folder) folder = await Folder.create({
+        name: folderName,
+        type: `JournalEntry`,
+        parent: ``
+    });
+    var journalp = Number(journalpermission);
+    
     let journalName = "DJournal - " + sceneName;
     let entryId = "";
     //check if journal exists
     let journal = game.journal.getName(journalName);
-	
+
     if (!journal && game.user.isGM) {
         //if it doesn't - create it
-        entryId = await createJournal(scene, journalName, checkSource, folder);
+        if (extension === "webm") {
+            entryId = await createJournalVid(scene, journalName, Source, folder);
+        } else {
+            if (game.settings.get('dynamicviewer', "journalunsup")) {
+                entryId = await createJournalPic(scene, journalName, Source, folder);
+            }
+        }
         journal = game.journal.getName(journalName);
+
         journal.update({
-            [`ownership.default`]: journalpermission
+            [`ownership.default`]: journalp
         });
     } else {
         entryId = journal.id;
@@ -109,16 +147,16 @@ async function checkJournal(scene, checkSource, sceneName, journalpermission, fo
     }
 }
 
-async function createJournal(scene, journalName, checkSource, folder) {
+async function createJournalVid(scene, journalName, Source, folder) {
     let journalData = {
         name: journalName,
-		folder: folder 
+        folder: folder
     };
 
     let entryData = [{
         name: journalName,
         type: "video",
-        src: checkSource,
+        src: Source,
         video: {
             autoplay: true,
             loop: true,
@@ -134,14 +172,37 @@ async function createJournal(scene, journalName, checkSource, folder) {
     return entryId;
 }
 
+async function createJournalPic(scene, journalName, Source, folder) {
+    let journalData = {
+        name: journalName,
+        folder: folder
+    };
+
+    let entryData = [{
+        name: journalName,
+        type: "picture",
+        src: Source,
+    }];
+
+    const entry = await JournalEntry.create(journalData);
+    const entryId = entry.id;
+    const entrypage = await entry.createEmbeddedDocuments("JournalEntryPage", entryData);
+    return entryId;
+}
 ///
 
 
-
-async function file_exists(file) {
-    return (await fetch(file)).status == 200
+function file_exists(file) {
+    if (file) {
+        var req = new XMLHttpRequest();
+        req.open('GET', file, false);
+        req.send();
+        return req.status == 200;
+    } else {
+        return false;
+    }
 }
-//Not in use
+
 async function playJournalVideoInPIP(j, p, e) {
     let journal = game.journal.getName(j);
     if (!journal) return false;
@@ -193,6 +254,7 @@ async function showJournal(j, p) {
 }
 //not in use
 
+
 async function closeJournal(j) {
     let journal = game.journal.getName(j);
     if (!journal) return false;
@@ -216,30 +278,14 @@ function isPlaying(n) {
 const interactions = ["contextmenu", "auxclick", "mousedown", "mouseup", "keydown"];
 let listeners = [];
 
-function play(video) {
-    video.play()
+async function play(video) {
+    await playVideo(video);
     video.requestPictureInPicture();
 }
 
 async function UpdateVideoElement(v, s) {
     v.src = s; // set the file path
 }
-
-async function pictureInPictureMultiple(j) {
-    if (document.pictureInPictureElement) {
-        document.exitPictureInPicture();
-    }
-    const videos = [...document.querySelectorAll("video")];
-    listeners = videos.map(video => () => {
-        play(video)
-
-        removeAllListeners()
-    });
-    listeners.forEach(listener => interactions.forEach(interaction => document.addEventListener(interaction, listener, {
-        once: true
-    })));
-}
-//not in use
 
 async function pictureInPictureSingle(video) {
     if (document.pictureInPictureSingle) {
@@ -260,27 +306,15 @@ function removeAllListeners() {
     listeners.forEach(listener => interactions.forEach(interaction => document.removeEventListener(interaction, listener)));
 }
 
-//not in use
-
 async function playVideo(n) {
-    let videos = document.getElementsByTagName('video');
-    for await (let video of videos) {
-        if (!video.src.includes(n) && !isPlaying(n)) continue; {
-            return video.play();
-        }
-    }
+    return n.play();
 }
-//not in use
 
 async function stopVideo(n) {
-    let videos = document.getElementsByTagName('video');
-    for (let video of videos) {
-        if (!video.src.includes(n) && isPlaying(n)) continue;
-        return video.pause();
-    }
-}
 
-//Main
+    return n.pause();
+
+}
 
 //------------Functions-----------
 async function CreateVideoElement() {
@@ -292,11 +326,12 @@ async function CreateVideoElement() {
     return video;
 }
 
+
 function getSceneControlButtons(controls) {
     const sceneControls = [{
         name: CONSTANTS.EXCLUSIONS,
         title: CONSTANTS.MODULE_NAME,
-        icon: 'fas fa-scroll',
+        icon: 'fas fa-image-slash',
         visible: true,
         onClick: () => exclusionsmanager.renderWindow(),
         button: true

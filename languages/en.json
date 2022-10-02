@@ -2,6 +2,9 @@
     "settings.journal.title": "Create Matching Journals",
     "settings.journal.hint": "Enabling this will create matching journal entries ",
 	
+	    "settings.journalunsup.title": "Create Matching Journals for unsupported (non-webm) files",
+    "settings.journalunsup.hint": "Enabling this will create matching journal entries for jpg files in a picture journal",
+	
     "settings.journalfolder.title": "Specificy Journal Folder",
     "settings.journalfolder.hint": "Enter which journal folder these journal entries should end up in",
 	
@@ -11,10 +14,11 @@
     "settings.visibiltydv.title" : "Player access",
     "settings.visibiltydv.hint" : "Enabling this will make it so your players will receive the video popups. Disable for GM Only",
 
+
 	"conditionsmanager.title" : "Conditions Manager",
 	"conditionsmanager.hint" : "Specify which string condition should be true in the file-name matches",
 	"conditionsmanager.label" : "Configure",
-	"conditionsmanager.description" : "Conditions by Name (Ex: '_BM')",
+	"conditionsmanager.description" : "Conditions by Name - file name must match at least 1 of these conditions (Ex: '_BM')",
 	"conditionsmanager.add": "Add",
 	"conditionsmanager.savechanges": "Save Changes",
 	"conditionsmanager.cancel": "Reset Defaults",
@@ -22,7 +26,7 @@
 	"exclusionsmanager.title" : "Exclusions Manager",
 	"exclusionsmanager.hint" : "Add which scenes should not dynamically generate video elements",
 	"exclusionsmanager.label" : "Configure",
-	"exclusionsmanager.description" : "Exclusions by Name (Ex: 'World_Map')",
+	"exclusionsmanager.description" : "Exclusions by any part of a file name (Ex: 'Barovia_Map')",
 	"exclusionsmanager.add": "Add",
 	"exclusionsmanager.savechanges": "Save Changes",
 	"exclusionsmanager.cancel": "Reset Defaults"

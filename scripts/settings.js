@@ -17,7 +17,7 @@ export let i18n = key => {
 };
 let permissions = {};
 permissions[CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER] = 'Player Observer';
-permissions[CONST.DOCUMENT_PERMISSION_LEVELS.None] = 'Game Master';
+permissions[CONST.DOCUMENT_PERMISSION_LEVELS.NONE] = 'Game Master';
 
 export class settings {
 
@@ -70,10 +70,16 @@ export class settings {
                 default: true,
                 type: Boolean
             },
+			      journalunsup: {
+                scope: "world",
+                config: true,
+                default: false,
+                type: Boolean
+            },
             journalp: {
                 scope: "world",
                 config: true,
-                default: CONST.USER_ROLES.GAMEMASTER,
+                default: CONST.DOCUMENT_PERMISSION_LEVELS.NONE,
                 choices: permissions,
                 type: String,
             },
@@ -100,10 +106,10 @@ export class settings {
                 scope: "world",
                 config: false,
                 default: [{
-                        id: 'world_map'
+                        id: 'Barovia_Map'
                     },
                     {
-                        id: 'world_maps'
+                        id: '2_Wachter_2F'
                     },
                 ],
                 type: Array,
