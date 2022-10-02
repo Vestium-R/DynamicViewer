@@ -7,3 +7,5 @@ By default this module will:
 - Create a journal entry with the embedded scene video (depending on settings)
 - Share the journal entry (depending on settings)
 - Create a picture in picture frame with the video scene embedded)
+
+![image](https://user-images.githubusercontent.com/78631300/193439488-a42a18d1-81fe-4f01-b6b4-5645c1148aa7.png)
