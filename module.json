@@ -1,10 +1,10 @@
 {
     "id": "dynamicviewer",
     "title": "Dynamic Viewer",
-    "description": "",
-    "version": "This is auto replaced",
+    "description": "This is a module for displaying a dynamic picture in picture elements on a battlemap scene that is being loaded. It also creates the corresponding Journal entries. This module is intended to be used in conjunction with the Beneos Battlemaps but will support a variety of both animated and non-animated maps.",
+    "version": "1.0.1",
     "library": "false",
-    "manifestPlusVersion": "1.2.0",
+    "manifestPlusVersion": "1.0.0",
     "compatibility": {
         "minimum": 10,
         "verified": 10,

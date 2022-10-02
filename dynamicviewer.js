@@ -33,18 +33,20 @@ async function prepare() {
 
     const scene = canvas.scene;
     const bmSource = scene.background.src;
+	const bmName = scene.name;
 
 
     ///****** Add your exclusions here
     let exclusions = game.settings.get('dynamicviewer', "exclusions");
-    let exclusionscheck = exclusions.some(ell => bmSource.includes(ell.id))
+    let exclusionschecksource = exclusions.some(ell => bmSource.includes(ell.id))
+    let exclusionscheckname = exclusions.some(ell => bmName.includes(ell.id))
 
     const conditions = game.settings.get('dynamicviewer', "conditions");
 
     //const condtionscheck = conditions.reduce((a, c) => a + bmSource.includes(c), 0) == 2;
     let condtionscheck = conditions.some(ell => bmSource.includes(ell.id))
 
-    if (condtionscheck && !(exclusionscheck)) {
+    if (condtionscheck && !(exclusionschecksource) && !(exclusionscheckname)) {
         let originextcheckSource = bmSource.replace(new RegExp("(.*)" + "_BM"), "$1_Scen");
         var re = /(?:\.([^.]+))?$/;
         var extension = re.exec(bmSource)[1];
