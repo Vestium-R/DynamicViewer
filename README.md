@@ -9,3 +9,12 @@ By default this module will:
 - Create a picture in picture frame with the video scene embedded)
 
 ![image](https://user-images.githubusercontent.com/78631300/193439488-a42a18d1-81fe-4f01-b6b4-5645c1148aa7.png)
+
+
+Scene navigation quick exclusion:
+
+![image](https://user-images.githubusercontent.com/78631300/193439504-28aece89-96eb-4f40-b1f6-267f711b9413.png)
+
+Journal Entry quick exclusion:
+
+![image](https://user-images.githubusercontent.com/78631300/193439540-63a2ac7d-50ba-4ed3-9510-3cc691aa7065.png)
