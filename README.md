@@ -20,8 +20,13 @@ It will do the following:
 Create a journal entry with the embedded scene video (depending on settings)
 Share the journal entry (depending on settings)
 
-![image](https://user-images.githubusercontent.com/78631300/193439488-a42a18d1-81fe-4f01-b6b4-5645c1148aa7.png)
+Example:
 
+![DynamicScene](https://user-images.githubusercontent.com/78631300/193440839-2ff5c397-5588-4938-a151-1c231928e6a5.gif)
+
+Settings:
+
+![image](https://user-images.githubusercontent.com/78631300/193439488-a42a18d1-81fe-4f01-b6b4-5645c1148aa7.png)
 
 Scene navigation quick exclusion:
 
