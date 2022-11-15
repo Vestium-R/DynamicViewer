@@ -167,7 +167,7 @@ async function createJournalVid(scene, journalName, Source, folder) {
         video: {
             autoplay: true,
             loop: true,
-            volume: 0.2,
+            volume: 0,
             width: 500,
             height: 500,
         }
@@ -314,6 +314,7 @@ function removeAllListeners() {
 }
 
 async function playVideo(n) {
+	
     return n.play();
 }
 
