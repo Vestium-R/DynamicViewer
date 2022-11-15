@@ -1,4 +1,7 @@
 {
+ "settings.enabled.title": "Enable the Module",
+    "settings.enabled.hint": "Enabling this will enable the module",
+	
     "settings.journal.title": "Create Matching Journals",
     "settings.journal.hint": "Enabling this will create matching journal entries ",
 	

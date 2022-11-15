@@ -58,6 +58,12 @@ export class settings {
 
     static register_settings() {
         const settingData = {
+				 enabled: {
+                scope: "world",
+                config: true,
+                default: true,
+                type: Boolean
+            },
 			            visibiltydv: {
                 scope: "world",
                 config: true,

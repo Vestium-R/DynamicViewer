@@ -21,6 +21,8 @@ Hooks.on("renderSceneDirectory", (app, html, data) => {
 
         await exclusionsmanager.renderWindow();
     });
+	
+
 });
 
 Hooks.on("canvasInit", prepare);
@@ -30,12 +32,15 @@ async function prepare() {
         document.exitPictureInPicture();
     }
 
-
     const scene = canvas.scene;
     const bmSource = scene.background.src;
 	const bmName = scene.name;
-
-
+///*****
+let istoggled = game.settings.get('dynamicviewer', "enabled");
+if (!istoggled)
+{
+	return;
+}
     ///****** Add your exclusions here
     let exclusions = game.settings.get('dynamicviewer', "exclusions");
     let exclusionschecksource = exclusions.some(ell => bmSource.includes(ell.id))
@@ -333,15 +338,35 @@ function getSceneControlButtons(controls) {
     const sceneControls = [{
         name: CONSTANTS.EXCLUSIONS,
         title: CONSTANTS.MODULE_NAME,
-        icon: 'fas fa-image-slash',
+        icon: 'fas fa-object-exclude',
         visible: true,
         onClick: () => exclusionsmanager.renderWindow(),
         button: true
+    }];
+	    const sceneModuleControls = [{
+        name: "Toggle the Dynamic Viewer",
+        title: "Dynamic Viewer Toggle",
+        icon: 'fas fa-image-slash',
+        visible: true,
+		toggle: true,
+		active: game.settings.get("dynamicviewer","enabled") ?? false,
+        onClick: toggled => ToggleDynamicViewer(toggled),
     }];
     if (game.user.isGM) {
         const notes = controls.find((c) => c.name === 'notes');
         if (notes) {
             notes.tools.push(...sceneControls);
+			notes.tools.push(...sceneModuleControls);
         }
+
     }
+}
+
+function ToggleDynamicViewer(toggled)
+{
+debugger
+	let istoggled = game.settings.get('dynamicviewer', "enabled");
+
+			game.settings.set('dynamicviewer', "enabled", toggled);
+		
 }

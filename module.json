@@ -1,42 +1,46 @@
 {
-    "id": "dynamicviewer",
-    "title": "Dynamic Viewer",
-    "description": "This is a module for displaying a dynamic picture in picture elements on a battlemap scene that is being loaded. It also creates the corresponding Journal entries. This module is intended to be used in conjunction with the Beneos Battlemaps but will support a variety of both animated and non-animated maps.",
-    "version": "1.0.1",
-    "library": "false",
-    "manifestPlusVersion": "1.0.0",
-    "compatibility": {
-        "minimum": 10,
-        "verified": 10,
-        "maximum": 11
-    },
-    "authors": [{
-        "name": "Vestium",
-        "url": "https://github.com/Vestium-R/DynamicViewer",
-        "discord": "Vestium#8078"
-    }],
-    "relationships": {
-        "systems": [],
-        "requires": []
-    },
-    "esmodules": [
-        "dynamicviewer.js"
-    ],
-    "styles": [
-        "styles/module.css"
-    ],
-    "languages": [{
-        "lang": "en",
-        "name": "English",
-        "path": "languages/en.json"
-    }],
-    "url": "This is auto replaced",
-    "manifest": "This is auto replaced",
-    "download": "This is auto replaced",
-    "license": "LICENSE",
-    "readme": "README.md",
-    "media": [{
-        "type": "icon",
-        "url": "https://avatars2.githubusercontent.com/u/71292812?s=400&u=ccdb4eeb7abf551ca8f314e5a9bfd0479a4d3d41&v=4"
-    }]
+  "id": "dynamicviewer",
+  "title": "Dynamic Viewer",
+  "description": "This is a module for displaying a dynamic picture in picture elements on a battlemap scene that is being loaded. It also creates the corresponding Journal entries. This module is intended to be used in conjunction with the Beneos Battlemaps but will support a variety of both animated and non-animated maps.",
+  "version": "V1.1",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "10",
+    "maximum": "11"
+  },
+  "authors": [
+    {
+      "name": "Vestium",
+      "url": "https://github.com/Vestium-R/DynamicViewer",
+      "discord": "Vestium#8078",
+      "flags": {}
+    }
+  ],
+  "esmodules": [
+    "dynamicviewer.js"
+  ],
+  "styles": [
+    "styles/module.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "languages/en.json",
+      "flags": {}
+    }
+  ],
+  "url": "https://github.com/Vestium-R/DynamicViewer",
+  "manifest": "https://github.com/Vestium-R/DynamicViewer/releases/latest/download/module.json",
+  "download": "https://github.com/Vestium-R/DynamicViewer/releases/download/V1.1/module.zip",
+  "license": "LICENSE",
+  "readme": "README.md",
+  "media": [
+    {
+      "type": "icon",
+      "url": "https://avatars2.githubusercontent.com/u/71292812?s=400&u=ccdb4eeb7abf551ca8f314e5a9bfd0479a4d3d41&v=4",
+      "loop": false,
+      "flags": {}
+    }
+  ]
 }
