@@ -36,11 +36,7 @@ async function prepare() {
     const bmSource = scene.background.src;
 	const bmName = scene.name;
 ///*****
-let istoggled = game.settings.get('dynamicviewer', "enabled");
-if (!istoggled)
-{
-	return;
-}
+
     ///****** Add your exclusions here
     let exclusions = game.settings.get('dynamicviewer', "exclusions");
     let exclusionschecksource = exclusions.some(ell => bmSource.includes(ell.id))
@@ -100,19 +96,25 @@ async function Main(Source, scene, extension) {
 
     JournalHandler(Source, scene, extension)
 
+let istoggled = game.settings.get('dynamicviewer', "enabled");
 
     let playervisible = game.settings.get('dynamicviewer', "visibiltydv");
     if (game.user.isGM) {
         
         await UpdateVideoElement(video, Source);
-        playElementVideoInPIP(video);
+		if (istoggled)
+			{
+						playElementVideoInPIP(video);
+			}
 
     } else {
 
         if (playervisible) {
             await UpdateVideoElement(video, Source);
-            playElementVideoInPIP(video);
-
+			if (istoggled)
+			{
+						playElementVideoInPIP(video);
+			}
         }
     }
 
@@ -369,5 +371,14 @@ function ToggleDynamicViewer(toggled)
 	let istoggled = game.settings.get('dynamicviewer', "enabled");
 
 			game.settings.set('dynamicviewer', "enabled", toggled);
+		
+		if (toggled)
+		{
+			 let video = document.getElementsByTagName('video')[0];
+
+		
+						playElementVideoInPIP(video);
+			}
+		
 		
 }
