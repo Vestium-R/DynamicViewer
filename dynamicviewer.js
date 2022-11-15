@@ -374,13 +374,13 @@ function ToggleDynamicViewer(toggled)
 		
 		if (toggled)
 		{
-			debugger
+			
 			 let video = document.getElementsByTagName('video')[0];
 				playElementVideoInPIP(video);
 			}
 			else
 			{
-				debugger
+				
 				if (document.pictureInPictureElement)
 				{
 				        document.exitPictureInPicture();
