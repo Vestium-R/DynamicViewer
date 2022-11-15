@@ -364,7 +364,7 @@ function getSceneControlButtons(controls) {
 
 function ToggleDynamicViewer(toggled)
 {
-debugger
+
 	let istoggled = game.settings.get('dynamicviewer', "enabled");
 
 			game.settings.set('dynamicviewer', "enabled", toggled);
