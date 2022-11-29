@@ -27,8 +27,8 @@ Scene navigation quick exclusion:
 
 ![image](https://user-images.githubusercontent.com/78631300/193439504-28aece89-96eb-4f40-b1f6-267f711b9413.png)
 
-Journal Entry quick exclusion:
+Journal Entry quick exclusion and module quick disable:
 
-![image](https://user-images.githubusercontent.com/78631300/193439540-63a2ac7d-50ba-4ed3-9510-3cc691aa7065.png)
+![image](https://user-images.githubusercontent.com/78631300/204562728-804f6cfd-a583-41a3-b7df-f92f3beb4fa4.png)
 
 Note* This module was originally designed for Beneos Animated Battlemaps but will work with any animated files. Can also work as a standalone automatic journal creator for your players. To do this simply include a matching _Scen file in the folder where your battlemap lives. IE: Castle_BM.jpg + Castle_Scen.jpg will create a journal entry with the contents of Castle_Scen in it.
