@@ -20,8 +20,7 @@ It will do the following:
 Create a journal entry with the embedded scene video (depending on settings)
 Share the journal entry (depending on settings)
 
-![image](https://user-images.githubusercontent.com/78631300/193439488-a42a18d1-81fe-4f01-b6b4-5645c1148aa7.png)
-
+![image](https://user-images.githubusercontent.com/78631300/204563207-3d09e4f5-d0cd-427c-b6a2-2377e3b8331b.png)
 
 Scene navigation quick exclusion:
 
