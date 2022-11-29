@@ -6,7 +6,7 @@ This is a module for displaying a dynamic picture in picture elements on a battl
 
 ![Dynamic Viewer](https://user-images.githubusercontent.com/78631300/204595819-836e7640-e910-42bd-a104-a28e600bd2f5.gif)
 
-*Sample Journal entry)
+*Sample Journal entry*
 
 ![image](https://user-images.githubusercontent.com/78631300/204597937-dde84823-49de-4da5-a0b4-335bd93124d6.png)
 
